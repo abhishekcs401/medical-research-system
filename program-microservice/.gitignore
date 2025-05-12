@@ -1,24 +1,35 @@
 # Node.js dependencies
+
 node_modules/
 
 # Environment files
+
 .env
 
 # Logs
+
 logs/
-*.log
+\*.log
 
 # Build output
+
 dist/
 build/
 
+# File uploads (e.g., PDFs, images)
+
+uploads/
+
 # IDE/Editor files
+
 .vscode/
 .idea/
 
 # OS generated files
+
 .DS_Store
 Thumbs.db
 
 # Coverage directory (e.g., nyc or jest)
+
 coverage/
