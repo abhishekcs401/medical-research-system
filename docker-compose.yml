@@ -1,0 +1,119 @@
+services:
+  # Medical Program Microservice (handles programs and participants)
+  program-microservice:
+    build:
+      context: ./program-microservice
+    container_name: program-microservice
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+      - rabbitmq
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=research_program_db
+      - RABBITMQ_URL=amqp://rabbitmq
+      - JWT_SECRET=supersecretjwtkey
+    networks:
+      - backend
+
+  # Audit Microservice (listens to delete events from program service)
+  audit-microservice:
+    build:
+      context: ./audit-microservice
+    container_name: audit-microservice
+    ports:
+      - "3002:3002"
+    depends_on:
+      - postgres
+      - rabbitmq
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=audit_db
+      - RABBITMQ_URL=amqp://rabbitmq
+    networks:
+      - backend
+
+  # Auth Microservice (handles user registration, login, JWT)
+  auth-microservice:
+    build:
+      context: ./auth-microservice
+    container_name: auth-microservice
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=auth_db
+    networks:
+      - backend
+
+  # API Gateway (routes requests and validates JWTs)
+  api-gateway:
+    build:
+      context: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "4000:4000"
+    depends_on:
+      - auth-microservice
+      - program-microservice
+      - audit-microservice
+    networks:
+      - backend
+
+  # Angular Frontend (Medical Research UI)
+  medical-research-app:
+    build:
+      context: ./medical-research-app
+      dockerfile: Dockerfile
+    container_name: medical-research-app
+    ports:
+      - "4200:80"
+    depends_on:
+      - api-gateway
+    networks:
+      - backend
+
+  # RabbitMQ (for message-based communication)
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"    # For microservice communication
+      - "15672:15672"  # For management dashboard
+    networks:
+      - backend
+
+  # PostgreSQL (shared by all microservices)
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: auth_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
