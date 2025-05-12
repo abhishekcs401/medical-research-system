@@ -1,0 +1,67 @@
+<div class="container py-4" *ngIf="participant">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h2 class="card-title mb-3">{{ participant.name }}</h2>
+
+            <dl class="row">
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">{{ participant.email }}</dd>
+
+                <dt class="col-sm-3">Age</dt>
+                <dd class="col-sm-9">{{ participant.age }}</dd>
+
+                <dt class="col-sm-3">Joined Date</dt>
+                <dd class="col-sm-9">{{ participant.joinedDate | date }}</dd>
+
+                <dt class="col-sm-3">Created By</dt>
+                <dd class="col-sm-9">{{ participant.createdByEmail }} ({{ participant.createdByRole }})</dd>
+
+                <dt class="col-sm-3">Created At</dt>
+                <dd class="col-sm-9">{{ participant.createdAt | date: 'medium' }}</dd>
+
+                <dt class="col-sm-3">Updated At</dt>
+                <dd class="col-sm-9">{{ participant.updatedAt | date: 'medium' }}</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div *ngIf="participant.program" class="card shadow-sm border-0 mt-4">
+        <div class="card-body">
+            <h4 class="card-title">Program Details</h4>
+
+            <dl class="row">
+                <dt class="col-sm-3">Title</dt>
+                <dd class="col-sm-9">{{ participant.program.title }}</dd>
+
+                <dt class="col-sm-3">Description</dt>
+                <dd class="col-sm-9">{{ participant.program.description }}</dd>
+
+                <dt class="col-sm-3">Start Date</dt>
+                <dd class="col-sm-9">{{ participant.program.startDate | date }}</dd>
+
+                <dt class="col-sm-3">End Date</dt>
+                <dd class="col-sm-9">{{ participant.program.endDate | date }}</dd>
+
+                <dt class="col-sm-3">Budget</dt>
+                <dd class="col-sm-9">₹{{ participant.program.budget | number }}</dd>
+
+                <dt class="col-sm-3">Created By</dt>
+                <dd class="col-sm-9">{{ participant.program.createdByEmail }} ({{ participant.program.createdByRole }})
+                </dd>
+
+                <dt class="col-sm-3">Attachment</dt>
+                <dd class="col-sm-9">
+                    <a [href]="'/uploads/' + participant.program.attachment" target="_blank" rel="noopener">
+                        {{ participant.program.attachment }}
+                    </a>
+                </dd>
+
+                <dt class="col-sm-3">Created At</dt>
+                <dd class="col-sm-9">{{ participant.program.createdAt | date: 'medium' }}</dd>
+
+                <dt class="col-sm-3">Updated At</dt>
+                <dd class="col-sm-9">{{ participant.program.updatedAt | date: 'medium' }}</dd>
+            </dl>
+        </div>
+    </div>
+</div>

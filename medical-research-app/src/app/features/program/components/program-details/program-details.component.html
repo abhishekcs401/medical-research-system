@@ -1,0 +1,44 @@
+<div class="container">
+    <h2>Program Details</h2>
+
+    <div *ngIf="program; else loading">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>{{ program.title }}</h3>
+                <p><strong>Description:</strong> {{ program.description }}</p>
+                <p><strong>Start Date:</strong> {{ program.startDate | date }}</p>
+                <p><strong>End Date:</strong> {{ program.endDate | date }}</p>
+                <p><strong>Budget:</strong> {{ program.budget | currency }}</p>
+                <p><strong>Created By:</strong> {{ program.createdByEmail }} ({{ program.createdByRole }})</p>
+                <p><strong>Created At:</strong> {{ program.createdAt | date }}</p>
+                <p><strong>Updated At:</strong> {{ program.updatedAt | date }}</p>
+
+                <p *ngIf="program.attachment">
+                    <strong>Attachment:</strong>
+                    <a [href]="getAttachmentUrl(program.attachment)" target="_blank">View / Download</a>
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Participants</h4>
+                <ul *ngIf="program.participants.length > 0; else noParticipants">
+                    <li *ngFor="let participant of program.participants">
+                        <p><strong>Name:</strong> {{ participant.name }}</p>
+                        <p><strong>Email:</strong> {{ participant.email }}</p>
+                        <p><strong>Age:</strong> {{ participant.age }}</p>
+                        <p><strong>Joined Date:</strong> {{ participant.joinedDate | date }}</p>
+                    </li>
+                </ul>
+                <ng-template #noParticipants>
+                    <p>No participants found for this program.</p>
+                </ng-template>
+            </div>
+        </div>
+
+        <button class="btn btn-primary mt-3" [routerLink]="['/programs/edit', program.id]">Edit Program</button>
+    </div>
+
+    <ng-template #loading>
+        <p>Loading program details...</p>
+    </ng-template>
+</div>

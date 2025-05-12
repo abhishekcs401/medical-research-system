@@ -1,0 +1,27 @@
+.sidebar {
+    width: 225px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 100;
+
+    .nav-link {
+        font-size: 1.1rem;
+        padding: 10px 20px;
+        color: #495057;
+
+        &:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        i {
+            margin-right: 8px;
+        }
+    }
+
+    .nav-item {
+        margin-bottom: 10px;
+    }
+}

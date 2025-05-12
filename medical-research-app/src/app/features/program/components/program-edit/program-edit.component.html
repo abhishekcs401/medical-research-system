@@ -1,0 +1,25 @@
+<div class="container mt-4">
+    <h2>Edit Program</h2>
+
+    <div *ngIf="!programForm" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2">Loading program details...</p>
+    </div>
+
+   
+<form *ngIf="programForm" [formGroup]="programForm" (ngSubmit)="onSubmit()">
+    <app-form-fields [form]="programForm" (fileSelected)="onFileSelected($event)"></app-form-fields>
+    <div class="d-flex justify-content-center button-container">
+            <button type="submit" class="btn btn-primary" [disabled]="programForm.invalid || submitting">
+                <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+                Update
+            </button>
+        </div>
+    </form>
+    <!-- Optional: Display selected file name -->
+    <div *ngIf="programForm?.get('attachment')?.value" class="mt-2 text-center">
+        <small class="text-muted">
+            Selected file: {{ programForm.get('attachment')?.value }}
+        </small>
+    </div>
+</div>

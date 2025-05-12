@@ -1,0 +1,81 @@
+<div [formGroup]="form" class="container mt-3">
+    <div class="row">
+        <!-- Title -->
+        <div class="col-md-6 mb-3">
+            <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+            <input type="text" id="title" class="form-control" formControlName="title" placeholder="Enter program title"
+                [ngClass]="{ 'is-invalid': form.get('title')?.touched && form.get('title')?.invalid }" />
+            <div class="invalid-feedback" *ngIf="form.get('title')?.touched && form.get('title')?.hasError('required')">
+                Title is required.
+            </div>
+        </div>
+
+        <!-- Budget -->
+        <div class="col-md-6 mb-3">
+            <label for="budget" class="form-label">Budget <span class="text-danger">*</span></label>
+            <input type="number" id="budget" class="form-control" formControlName="budget"
+                placeholder="Enter budget amount"
+                [ngClass]="{ 'is-invalid': form.get('budget')?.touched && form.get('budget')?.invalid }" />
+            <div class="invalid-feedback"
+                *ngIf="form.get('budget')?.touched && form.get('budget')?.hasError('required')">
+                Budget is required.
+            </div>
+        </div>
+
+        <!-- Start Date -->
+        <div class="col-md-6 mb-3">
+            <label for="startDate" class="form-label">Start Date <span class="text-danger">*</span></label>
+            <input type="date" id="startDate" class="form-control" formControlName="startDate"
+                placeholder="Select start date"
+                [ngClass]="{ 'is-invalid': form.get('startDate')?.touched && form.get('startDate')?.invalid }" />
+            <div class="invalid-feedback"
+                *ngIf="form.get('startDate')?.touched && form.get('startDate')?.hasError('required')">
+                Start date is required.
+            </div>
+        </div>
+
+        <!-- End Date -->
+        <div class="col-md-6 mb-3">
+            <label for="endDate" class="form-label">End Date <span class="text-danger">*</span></label>
+            <input type="date" id="endDate" class="form-control" formControlName="endDate" placeholder="Select end date"
+                [ngClass]="{ 'is-invalid': form.get('endDate')?.touched && form.get('endDate')?.invalid }" />
+            <div class="invalid-feedback"
+                *ngIf="form.get('endDate')?.touched && form.get('endDate')?.hasError('required')">
+                End date is required.
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="col-md-12 mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" rows="3" class="form-control" formControlName="description"
+                placeholder="Enter program description"></textarea>
+        </div>
+
+        <!-- Attachment -->
+    <!-- Attachment Upload -->
+<div class="col-md-12 mb-3">
+    <label for="attachmentFile" class="form-label">Upload Attachment</label>
+    <input type="file" id="attachmentFile" class="form-control" (change)="onFileChange($event)"
+        accept=".pdf,.jpg,.png,.docx,.xlsx" />
+</div>
+    
+    <!-- Preview of existing attachment (optional) -->
+    <div *ngIf="form.get('attachment')?.value" class="mt-2">
+        <label class="form-label">Current Attachment:</label>
+        <p>{{ form.get('attachment')?.value }}</p>
+    </div>
+
+
+        <!-- Created Info (Read-only) -->
+        <div *ngIf="form.get('createdByEmail')" class="col-md-6 mb-3">
+            <label class="form-label">Created By</label>
+            <input class="form-control" [value]="form.get('createdByEmail')?.value" readonly />
+        </div>
+        
+        <div *ngIf="form.get('createdByRole')" class="col-md-6 mb-3">
+            <label class="form-label">Role</label>
+            <input class="form-control" [value]="form.get('createdByRole')?.value" readonly />
+        </div>
+    </div>
+</div>

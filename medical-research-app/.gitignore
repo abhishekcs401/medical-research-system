@@ -1,0 +1,33 @@
+# Output directories
+dist/
+out-tsc/
+tmp/
+coverage/
+
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Angular cache
+.angular/cache/
+
+# Misc
+testem.log
+typings/
+connect.lock
+libpeerconnection.log
+.sass-cache/
+.history/

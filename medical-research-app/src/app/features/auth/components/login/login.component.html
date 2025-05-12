@@ -1,0 +1,58 @@
+<div class="container d-flex justify-content-center">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-100"  novalidate>
+        <div class="card shadow-sm p-4">
+            <h4 class="card-title text-center mb-4">Login</h4>
+ 
+            <!-- Email Field -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" placeholder="Enter your email"
+                    formControlName="email" [class.is-invalid]="
+            loginForm.get('email')?.invalid &&
+            (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)
+          " />
+                <div class="invalid-feedback" *ngIf="loginForm.get('email')?.errors">
+                    <ng-container *ngIf="loginForm.get('email')?.hasError('required')">
+                        Email is required.
+                    </ng-container>
+                    <ng-container *ngIf="loginForm.get('email')?.hasError('email')">
+                        Enter a valid email address.
+                    </ng-container>
+                    <ng-container *ngIf="loginForm.get('email')?.hasError('serverError')">
+                        {{ loginForm.get('email')?.getError('serverError') }}
+                    </ng-container>
+                </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password"
+                    formControlName="password" [class.is-invalid]="
+            loginForm.get('password')?.invalid &&
+            (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)
+          " />
+                <div class="invalid-feedback" *ngIf="loginForm.get('password')?.errors">
+                    <ng-container *ngIf="loginForm.get('password')?.hasError('required')">
+                        Password is required.
+                    </ng-container>
+                    <ng-container *ngIf="loginForm.get('password')?.hasError('minlength')">
+                        Password must be at least 5 characters long.
+                    </ng-container>
+                    <ng-container *ngIf="loginForm.get('password')?.hasError('serverError')">
+                        {{ loginForm.get('password')?.getError('serverError') }}
+                    </ng-container>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-success w-100" [disabled]="loginForm.invalid || isLoading">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+                {{ isLoading ? 'Logging in...' : 'Login' }}
+            </button>
+            <div class="text-center mt-3">
+                <a routerLink="/auth/register">Don't have an account? Register here</a>
+            </div>
+        </div>
+    </form>
+</div>

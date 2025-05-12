@@ -1,0 +1,25 @@
+.dashboard-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.audit-list-section {
+    margin-bottom: 20px;
+}
+
+.logout-section {
+    text-align: right;
+}
+
+.logout-button {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
+}

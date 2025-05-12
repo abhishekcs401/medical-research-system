@@ -1,0 +1,12 @@
+<div *ngIf="!loading">
+    <select class="form-select" [ngModel]="selectedProgramId?.toString()" (ngModelChange)="onChangeFromModel($event)">
+        <option value="" disabled>Select Program</option>
+        <option *ngFor="let p of programs" [value]="p.id.toString()">
+            {{ p.title }}
+        </option>
+    </select>
+</div>
+
+<div *ngIf="loading">
+    <p>Loading programs...</p>
+</div>
